@@ -1,6 +1,7 @@
 import com.github.chen0040.objdetect.ObjectDetector;
 import com.github.chen0040.objdetect.models.DetectedObj;
 import com.github.sarxos.webcam.Webcam;
+import com.xuggle.xuggler.video.ConverterFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,10 +19,10 @@ public class ObjectDetectorDemo {
 
 
         for (int j = 0; j < 50; j++) {
-            BufferedImage image = webcam.getImage();
-            ImageIO.write(image,"jpg",new File("images/out.jpg"));
-            BufferedImage img = ImageIO.read(new File("images/out.jpg"));
-            List<DetectedObj> result = detector.detectObjects(img);
+            BufferedImage image = ConverterFactory.convertToType(webcam.getImage(), BufferedImage.TYPE_3BYTE_BGR);
+//            ImageIO.write(image,"jpg",new File("images/out.jpg"));
+//            BufferedImage img = ImageIO.read(new File("images/out.jpg"));
+            List<DetectedObj> result = detector.detectObjects(image);
 
             System.out.println("There are " + result.size() + " objects detected");
             for(int i=0; i < result.size(); ++i){
